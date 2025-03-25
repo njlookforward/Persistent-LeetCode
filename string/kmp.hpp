@@ -58,7 +58,7 @@ public:
     int strStr(string haystack, string needle);
 };
 
-void Solution_1::getNext(int *next, string s)
+inline void Solution_1::getNext(int *next, string s)
 {
     int j = -1;
     next[0] = j;
@@ -74,7 +74,7 @@ void Solution_1::getNext(int *next, string s)
     }
 }
 
-int Solution_1::strStr(string haystack, string needle)
+inline int Solution_1::strStr(string haystack, string needle)
 {
     if(needle.size() == 0)
         return -1;  // 需要先进行判断是否合法
@@ -104,7 +104,7 @@ public:
 };
 
 // 不管是getNext还是strStr都是在移动模式串（getNext中是前缀串）去尝试匹配下一个字符
-void kmp_norm::getNext(int *next, const string &s)
+inline void kmp_norm::getNext(int *next, const string &s)
 {
     int j = 0;  // 正常情况下，从index0开始进行比对
     next[0] = j;    // 初始化next数组
@@ -122,7 +122,7 @@ void kmp_norm::getNext(int *next, const string &s)
     }
 }
 
-int kmp_norm::strStr(string haystack, string needle)
+inline int kmp_norm::strStr(string haystack, string needle)
 {
     if(needle.size() == 0)
         return -1;
@@ -151,7 +151,7 @@ public:
     int strStr(string haystack, string needle);
 };
 
-void kmp_1::getNext(int *next, const string &s)
+inline void kmp_1::getNext(int *next, const string &s)
 {
     // 将next数组从正常值减1，这样容易得到next[]回退子串的索引
     int j = -1;
@@ -169,7 +169,7 @@ void kmp_1::getNext(int *next, const string &s)
     }
 }
 
-int kmp_1::strStr(string haystack, string needle)
+inline int kmp_1::strStr(string haystack, string needle)
 {
     if(needle.size() == 0)
         return -1;
