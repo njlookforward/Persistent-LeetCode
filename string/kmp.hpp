@@ -1,3 +1,5 @@
+#ifndef KMP_HPP
+#define KMP_HPP
 #include <string>
 using std::string;
 
@@ -93,3 +95,100 @@ int Solution_1::strStr(string haystack, string needle)
     }
     return -1;
 }
+
+// next数组的作用是记录不同位置字符出现不同时，如何进行回退，从前面匹配的子字符串中的某个位置继续比较
+class kmp_norm {
+public:
+    void getNext(int *next, const string &s);       // 针对的是模式串得到next数组
+    int strStr(string haystack, string needle);
+};
+
+// 不管是getNext还是strStr都是在移动模式串（getNext中是前缀串）去尝试匹配下一个字符
+void kmp_norm::getNext(int *next, const string &s)
+{
+    int j = 0;  // 正常情况下，从index0开始进行比对
+    next[0] = j;    // 初始化next数组
+    for(int i = 1; i < s.size(); ++i)
+    {
+        // i必须从1开始进行比较
+        while (j > 0 && s[i] != s[j])
+        {
+            // 一旦前缀串与后缀串不同，那么就不停的向前回退，直到找到与后缀串末尾字符相同的位置为止或者移动到了开头位置
+            j = next[j - 1];
+        }
+        if(s[i] == s[j])
+            ++j;    // j不仅仅代表前缀串的末尾字符位置，而且表示最大相同前后缀子串长度
+        next[i] = j;
+    }
+}
+
+int kmp_norm::strStr(string haystack, string needle)
+{
+    if(needle.size() == 0)
+        return -1;
+
+    int next[needle.size()];
+    getNext(next, needle);
+    int j = 0;
+    for(int i = 0; i < haystack.size(); ++i)
+    {
+        while (j > 0 && haystack[i] != needle[j])
+        {
+            // 只要不相等，就一直向前回退，不断的移动模式串，而不需要移动文本串
+            j = next[j - 1];    // 从前一个已经成功匹配的模式子串查找回退位置
+        }
+        if(haystack[i] == needle[j])
+            ++j;
+        if(j == needle.size())
+            return i - needle.size() + 1;
+    }
+    return -1;
+}
+
+class kmp_1 {
+public:
+    void getNext(int *next, const string &s);
+    int strStr(string haystack, string needle);
+};
+
+void kmp_1::getNext(int *next, const string &s)
+{
+    // 将next数组从正常值减1，这样容易得到next[]回退子串的索引
+    int j = -1;
+    next[0] = j;
+    for(int i = 1; i < s.size(); ++i)
+    {
+        // 前后缀子串不匹配，相当于内部的一种kmp查找
+        while (j >= 0 && s[i] != s[j + 1])
+        {
+            j = next[j];
+        }
+        if(s[i] == s[j + 1])
+            ++j;
+        next[i] = j;
+    }
+}
+
+int kmp_1::strStr(string haystack, string needle)
+{
+    if(needle.size() == 0)
+        return -1;
+
+    int next[needle.size()];
+    getNext(next, needle);
+    int j = -1;
+    for(int i = 0; i < haystack.size(); ++i)
+    {
+        while (j >= 0 && haystack[i] != needle[j + 1])
+        {
+            j = next[j];
+        }
+        if(haystack[i] == needle[j + 1])    // bug
+            ++j;
+        if(j == needle.size() - 1)
+            return i - needle.size() + 1;
+    }
+    return -1;
+}
+
+#endif
