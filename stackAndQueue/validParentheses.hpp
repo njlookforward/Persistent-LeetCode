@@ -9,6 +9,7 @@ public:
     bool isValid(std::string s)
     {
         // 由于栈结构的对称性，非常适合对称匹配类的问题
+        // 总的来说，就是遍历字符串，遇到左括号入栈，遇到右括号，若匹配则出栈
         std::stack<int> st;
         for(int i = 0; i < s.size(); ++i)
         {
