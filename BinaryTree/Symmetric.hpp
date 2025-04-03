@@ -21,6 +21,8 @@ struct TreeNode
     TreeNode *right = nullptr;
 };
 
+// 无论是递归法还是迭代法，都是比较左右节点，这个左右节点是指对称的左右节点，例如left->left and right->right
+// 包括空指针都要进行比较
 class Solution_recursion {
 public:
     bool checkSymmetric(TreeNode *left, TreeNode *right);
