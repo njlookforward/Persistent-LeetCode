@@ -46,23 +46,32 @@ public:
 };
 
 // 求深度，就是根节点到目标节点的最长简单路径中所包含的节点数，因此需要使用前序遍历
+// inline void Solution_pre_recursion::getDepth(TreeNode *node, int depth, int &result)
+// {
+//     // 这个逻辑就是一层一层的确定
+//     // 中 - 左 - 右
+//     result = depth > result ? depth : result;
+//     if(node->left == nullptr && node->right == nullptr) return;
+
+//     if(node->left) {
+//         ++depth;
+//         getDepth(node->left, depth, result);
+//         --depth;    // 回溯
+//     }
+//     if(node->right) {
+//         ++depth;
+//         getDepth(node->right, depth, result);
+//         --depth;
+//     }
+// }
+
+// 从上往下一层层迭代最大深度
 inline void Solution_pre_recursion::getDepth(TreeNode *node, int depth, int &result)
 {
-    // 这个逻辑就是一层一层的确定
-    // 中 - 左 - 右
-    result = depth > result ? depth : result;
-    if(node->left == nullptr && node->right == nullptr) return;
-
-    if(node->left) {
-        ++depth;
-        getDepth(node->left, depth, result);
-        --depth;    // 回溯
-    }
-    if(node->right) {
-        ++depth;
-        getDepth(node->right, depth, result);
-        --depth;
-    }
+    if(node == nullptr) return;
+    result = max(depth, result);
+    getDepth(node->left, depth + 1, result);
+    getDepth(node->right, depth + 1, result);
 }
 
 class Solution_iteration_level {
