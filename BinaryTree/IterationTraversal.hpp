@@ -95,4 +95,47 @@ inline vector<int> Solution_uniform_iteration::postorderTraversal(TreeNode *root
     return result;
 }
 
+class Solution_iteration_recap1 {
+public:
+    vector<int> preorder(TreeNode *root);
+    vector<int> inorder(TreeNode *root);
+};
+
+inline vector<int> Solution_iteration_recap1::preorder(TreeNode *root) {
+    vector<int> result;
+    if(!root) return result;
+    stack<TreeNode*> st;
+    st.push(root);
+    while (!st.empty())
+    {
+        TreeNode *cur = st.top();
+        st.pop();
+        result.push_back(cur->val);
+        if(cur->right) st.push(cur->right);
+        if(cur->left) st.push(cur->left);
+    }
+    return result;
+}
+
+inline vector<int> Solution_iteration_recap1::inorder(TreeNode *root)
+{
+    vector<int> result;
+    if(!root) return result;
+    stack<TreeNode*> st;
+    TreeNode *cur = root;
+    while (cur != nullptr || !st.empty())
+    {
+        if(cur) {
+            st.push(cur);
+            cur = cur->left;
+        } else {
+            cur = st.top();
+            st.pop();
+            result.push_back(cur->val);
+            cur = cur->right;
+        }
+    }
+    return result;
+}
+
 #endif  // ITERATIONTRAVERSAL_HPP

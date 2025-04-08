@@ -46,4 +46,31 @@ public:
     }
 };
 
+class Solution_iteration_uniform {
+public:
+    vector<int> inorder(TreeNode *root) {
+        vector<int> result;
+        if(!root) return result;
+        stack<TreeNode*> st;
+        st.push(root);
+        while (!st.empty())
+        {
+            TreeNode *cur = st.top();
+            if(cur) {
+                st.pop();
+                if(cur->right) st.push(cur->right);
+                st.push(cur);
+                st.push(nullptr);
+                if(cur->left) st.push(cur->left);
+            } else {
+                st.pop();
+                cur = st.top();
+                st.pop();
+                result.push_back(cur->val);
+            }
+        }
+        return result;
+    }
+};
+
 #endif  // INORDERTRAVERSAL_HPP
