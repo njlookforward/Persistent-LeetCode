@@ -40,6 +40,7 @@ inline TreeNode* Solution_recursion::construct(vector<int> &nums, size_t left, s
     }
     auto maxiter = max_element(nums.cbegin() + left, nums.cbegin() + right);
     TreeNode *root = new TreeNode(*maxiter);
+    // 因为终止条件是到达叶子结点，因此必须保证子数组区间长度大于等于1
     if(maxiter > nums.cbegin() + left) {
         root->left = construct(nums, left, maxiter - nums.cbegin());
     }
