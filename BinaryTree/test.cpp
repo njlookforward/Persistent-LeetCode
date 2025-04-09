@@ -1,6 +1,7 @@
 // #include "InorderTraversal.hpp"
 // #include "IterationTraversal.hpp"
-#include "MinAbsoluteDifference.hpp"
+// #include "MinAbsoluteDifference.hpp"
+#include "findDuplicateModeinBST.hpp"
 #include <iostream>
 using std::cout; using std::endl;
 
@@ -22,24 +23,41 @@ using std::cout; using std::endl;
 //     delete root;
 // }
 
-void test_getMinDifference()
-{
-    TreeNode *root = new TreeNode(5);
-    root->left = new TreeNode(4);
-    root->right = new TreeNode(7);
+// void test_getMinDifference()
+// {
+//     TreeNode *root = new TreeNode(5);
+//     root->left = new TreeNode(4);
+//     root->right = new TreeNode(7);
 
-    auto min = Solution_recursion_doublePointer().getMinimumDifference(root);
-    cout << "min = " << min << endl;
+//     auto min = Solution_recursion_doublePointer().getMinimumDifference(root);
+//     cout << "min = " << min << endl;
+
+//     delete root->right;
+//     delete root->left;
+//     delete root;
+// }
+
+void test_findDuplicate()
+{
+    TreeNode *root = new TreeNode(1);
+    root->right = new TreeNode(2);
+
+    auto result = Solution_recursion_doublePointer().findMode(root);
+    for (auto &i : result)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
 
     delete root->right;
-    delete root->left;
     delete root;
 }
 
 int main()
 {
     // test_inorderTraversal();
-    test_getMinDifference();
+    // test_getMinDifference();
+    test_findDuplicate();
 
     return 0;
 }
