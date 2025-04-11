@@ -24,6 +24,7 @@ public:
     {
         if(cur == nullptr) return;
         inOrderFind(pre, cur->left, occurs, maxOccurs, result);
+        // 要记住使用中序遍历，在中间作为单层递归逻辑，处理occurs,result和maxOccurs。别的地方是处理不了的，逻辑不要错
         if(pre == nullptr || pre->val != cur->val)
             occurs = 1;
         else {
