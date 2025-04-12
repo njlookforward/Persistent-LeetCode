@@ -1,9 +1,16 @@
 // #include "InorderTraversal.hpp"
 // #include "IterationTraversal.hpp"
 // #include "MinAbsoluteDifference.hpp"
-#include "findDuplicateModeinBST.hpp"
+// #include "findDuplicateModeinBST.hpp"
+#include "TrimBST.hpp"
 #include <iostream>
 using std::cout; using std::endl;
+
+#include <stack>
+using std::stack;
+
+#include <vector>
+using std::vector;
 
 // void test_inorderTraversal()
 // {
@@ -37,27 +44,66 @@ using std::cout; using std::endl;
 //     delete root;
 // }
 
-void test_findDuplicate()
+// void test_findDuplicate()
+// {
+//     TreeNode *root = new TreeNode(1);
+//     root->right = new TreeNode(2);
+
+//     auto result = Solution_recursion_doublePointer().findMode(root);
+//     for (auto &i : result)
+//     {
+//         cout << i << " ";
+//     }
+//     cout << endl;
+
+//     delete root->right;
+//     delete root;
+// }
+
+vector<int> inorderTraversal(TreeNode *root)
+{
+    stack<TreeNode *> st;
+    vector<int> result;
+    if(!root) return result;
+    
+    TreeNode *cur = root;
+    while (cur != nullptr || !st.empty())
+    {
+        // Bug: 逻辑出问题了
+        // 脑袋出问题了，!cur代表cur为空啊
+        if(cur) {
+            st.push(cur);
+            cur = cur->left;
+        } else {
+            cur = st.top();
+            st.pop();
+            result.push_back(cur->val);
+            cur = cur->right;
+        }
+    }
+    return result;
+}
+
+void test_trimBST()
 {
     TreeNode *root = new TreeNode(1);
     root->right = new TreeNode(2);
 
-    auto result = Solution_recursion_doublePointer().findMode(root);
-    for (auto &i : result)
+    TreeNode *newRoot = Solution_recursion().trimBST(root, 2, 4);
+    auto result = inorderTraversal(newRoot);
+    for (auto i : result)
     {
         cout << i << " ";
     }
     cout << endl;
-
-    delete root->right;
-    delete root;
 }
 
 int main()
 {
     // test_inorderTraversal();
     // test_getMinDifference();
-    test_findDuplicate();
+    // test_findDuplicate();
+    test_trimBST();
 
     return 0;
 }
