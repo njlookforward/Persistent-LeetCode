@@ -16,7 +16,8 @@ public:
             result.push_back(path);
             return;
         }
-        for(int i = startIdx; i <= n; ++i) {
+        // 剪枝操作过程：path中还需要k - path.size()的个元素，因此i最大的索引是n - (k - path.size()) + 1
+        for(int i = startIdx; i <= n - (k-path.size()) + 1; ++i) {
             path.push_back(i);
             backTracking(n, k, i + 1, path, result);
             path.pop_back();    // 回溯操作

@@ -57,4 +57,31 @@ public:
     }
 };
 
+class Solution_carl {
+public:
+    void backTracking(int k, int n, int sum, int startIdx, vector<int> &path,
+                      vector<vector<int>> &result) {
+        if(sum == n && path.size() == k) {
+            result.push_back(path);
+            return;
+        }
+        // BUG：没有理解题意，题目限制在1-9之间取数
+        // key：对于明确要求k个数字的组合，剪枝操作就是n-(k-path.size())+1;如果还有sum值的话
+        // && sum + candidates[i] <= target;
+        for(int i = startIdx; i <= 9 - (k-path.size()) + 1 && sum + i <= n; ++i) {
+            path.push_back(i);
+            sum += i;
+            backTracking(k, n, sum, i + 1, path, result);
+            sum -= i;
+            path.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<int> path;
+        vector<vector<int>> result;
+        backTracking(k, n, 0, 1, path, result);
+        return result;
+    }
+};
+
 #endif
