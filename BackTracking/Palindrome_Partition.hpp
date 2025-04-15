@@ -27,7 +27,7 @@ public:
             return;
         }
         for(int i = startIdx; i < s.size(); ++i) {
-            // 切割的范围: [startIdx, i]
+            // BUG & key: 切割的范围: [startIdx, i]
             if(isPalindrome(s, startIdx, i)) {
                 path.push_back(s.substr(startIdx, i - startIdx + 1));
             } else 
