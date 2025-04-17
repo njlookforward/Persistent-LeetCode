@@ -27,6 +27,7 @@ using std::pair;
  * unordered_map保存键值对数据，作为回溯遍历的容器；其中key是起点，value应该是一个容器保存终点的序列
  * 由于在回溯遍历过程中需要记录已经经过的飞机站，不能删除容器，否则迭代器会失效，因此采用map<string,int>
  * 记录是否已经遍历过，由于题目要求按照字典序进行遍历，因此采用map
+ * 回溯问题处理的都是一个集合，然后思考如何在这个集合中做回溯。
 */
 
 // 我自己的解法超出了时间限制，可恶啊
@@ -79,6 +80,8 @@ inline void Solution::backTracking(unordered_map<string, map<string, int>> &targ
 }
 
 // 我的方法的确是做了一些无用功，如果找到结果，在递归的过程中，应该直接返回
+// 这种方法也超时了，看评论说应该使用深度优先遍历，以后学完之后再进行修改吧
+// TODO
 class Solution_carl {
 public:
     bool backTracking(unordered_map<string, map<string,int>> &targets, vector<string> &result, int ticketNum) {
