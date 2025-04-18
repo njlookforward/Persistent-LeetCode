@@ -4,6 +4,9 @@
 #include <vector>
 using std::vector;
 
+#include <algorithm>
+using std::sort;
+
 /**
  * @brief 因为给定数组中存在重复值，因此需要去重，仍然是同一层级进行去重，只要在同一层级中，这个数被遍历过了
  * 就跳过这一整个分支的遍历，仍然采用数组作为哈希表，因为数值范围确定且较小
@@ -38,5 +41,35 @@ public:
     }
 };
 
+// 仍然可以使用sort + used数组进行树层去重，尽管此时used数组在全排列中的主要作用是标记该处数字是否被使用
+// 但是因为已经经过排序了，而且是在发生重复的最高树层就进行去重，因此并不影响可以同时利用used进行树层去重
+class Solution_carl {
+public:
+    void backTracking(const vector<int> &nums, vector<bool> &used,
+                vector<int> &path, vector<vector<int>> &result) {
+        if(path.size() == nums.size()) {
+            result.push_back(path);
+            return;
+        }
+        for(int i = 0; i < nums.size(); ++i) {
+            // 首先进行去重
+            if(i > 0 && nums[i] == nums[i-1] && used[i-1] == false) continue;
+            if(used[i] == true) continue;
+            path.push_back(nums[i]);
+            used[i] = true;
+            backTracking(nums, used, path, result);
+            used[i] = false;    
+            path.pop_back();
+        }
+    }
+    vector<vector<int>> permuteUnique(vector<int> &nums) {
+        vector<int> path;
+        vector<vector<int>> result;
+        vector<bool> used(nums.size(), false);
+        sort(nums.begin(), nums.end());
+        backTracking(nums, used, path, result);
+        return result;
+    }
+};
 
 #endif
