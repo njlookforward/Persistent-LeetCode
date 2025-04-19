@@ -16,6 +16,10 @@ using std::unordered_set;
  * 题目要求的是子序列，因此无法先排序再使用used，因此需要使用unorder_set<int>记录同一树层中已经遍历过的元素
 */ 
 
+/**
+ * @attention 使用unordered_map本质上是采用哈希表，而数组, map, set都可以作为哈希表
+ * 由于题目要求100 <= nums[i] <= 100，因此当数值范围较小时，应该采用数组
+*/
 class Solution
 {
 public:
@@ -25,12 +29,15 @@ public:
         if(path.size() >= 2)
             result.push_back(path);
         if(startIdx == nums.size()) return;
-        unordered_set<int> used;    
+        // unordered_set<int> used;  
+        bool used[201] = {0};  
         for(int i = startIdx; i < nums.size(); ++i) {
             // 这是我自己的逻辑出现问题，应该是当前
             if(!path.empty() && (nums[i] < path.back())) continue;
-            if(used.count(nums[i])) continue;   // 当前层级去重
-            used.insert(nums[i]);
+            // if(used.count(nums[i])) continue;   // 当前层级去重
+            if(used[nums[i] + 100]) continue;
+            // used.insert(nums[i]);
+            used[nums[i] + 100] = true;
             path.push_back(nums[i]);
             backTracking(nums, i + 1, path, result);
             path.pop_back();
