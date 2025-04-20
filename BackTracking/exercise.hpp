@@ -13,4 +13,14 @@ inline void display(const Container &c) {
     cout << endl;
 }
 
+// 模板特例化
+template <>
+inline void display(const vector<string> &chessboard) {
+    for(const string &line : chessboard) {
+        for(char ch : line) {
+            cout << ch << " ";
+        }
+        cout << endl;
+    }
+}
 #endif
