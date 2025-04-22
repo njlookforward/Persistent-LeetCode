@@ -56,6 +56,7 @@ public:
         * @attention 确定这些数据结构对象，可以看出编程的功力深浅，我最初的大体思路是正确的,
         * 但是使用left right i cover result太过冗余，而且for循环没有想清楚，太乱了，上面的设计刚刚好
        */
+       if(nums.size() <= 1) return 0;
        int cur = 0, next = 0;
        int result = 0;
        for(int i = 0; i < nums.size(); ++i) {
