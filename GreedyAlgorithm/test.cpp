@@ -1,5 +1,6 @@
 // #include "Jump_Game_II.hpp"
-#include "GasStation.hpp"
+// #include "GasStation.hpp"
+#include "Non_overlapping_intervals.hpp"
 #include <iostream>
 using std::cout; using std::endl;
 
@@ -23,21 +24,32 @@ using std::cout; using std::endl;
 //     cout << minJumpCnt << endl;
 // }
 
-void test_gas_station()
+// void test_gas_station()
+// {
+//     // vector<int> gas = {1,2,3,4,5};
+//     // vector<int> cost = {3,4,5,1,2};
+//     vector<int> gas = {2,3,4};
+//     vector<int> cost = {3,4,3};
+//     auto startIdx = Solution_violent().canCompleteCircuit(gas, cost);
+//     cout << "从Index " << startIdx << " 开始" << endl;
+// }
+
+void test_non_overlapping_intervals()
 {
-    // vector<int> gas = {1,2,3,4,5};
-    // vector<int> cost = {3,4,5,1,2};
-    vector<int> gas = {2,3,4};
-    vector<int> cost = {3,4,3};
-    auto startIdx = Solution_violent().canCompleteCircuit(gas, cost);
-    cout << "从Index " << startIdx << " 开始" << endl;
+    vector<vector<int>> intervals{
+        {-52,31},{-73,-26},{82,97},{-65,-11},
+        {-62,-49},{95,99},{58,95},{-31,49},
+        {66,98},{-63,2},{30,47},{-40,-26}};
+    int result = Solution().eraseOverlapIntervals(intervals);
+    cout << "result is " << result << endl;
 }
 
 int main(void)
 {
     // test_jump_game();
     // test_jump_game_II();
-    test_gas_station();
+    // test_gas_station();
+    test_non_overlapping_intervals();
 
     return 0;
 }
