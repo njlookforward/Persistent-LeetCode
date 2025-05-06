@@ -11,13 +11,14 @@ using std::vector;
  * 2) 递推公式：因为只能向右或者向下走，因此[i,j]只能从[i-1,j]或[i,j-1]处来到，因此dp[i,j] = dp[i-1,j] + dp[i,j-1];
  * 3) dp[i,j]的初始化问题，因为任何一个位置都是由上和左得到的，因此最上和最左必须进行初始化
  * 4) 有递推公式可知每一个位置由上和左决定，因此应该从上往下，从左往右进行遍历
+ * @attention dp[0,0] = 1,必须是1，因为测试用例是1
 */
 
 class Solution {
 public:
     int uniquePaths(int m, int n) {
         // 1) 定义dp数组
-        vector<vector<int>> dp(m, vector<int>(n));
+        vector<vector<int>> dp(m, vector<int>(n, 0));
         // 2) 初始化dp数组
         for(int i = 0; i < m; i++) 
             dp[i][0] = 1;
