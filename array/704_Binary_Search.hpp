@@ -17,7 +17,7 @@ public:
     int search(vector<int> &nums, int target) {
         if(nums.size() == 0) return -1;
         for(int left = 0, right = nums.size(); left < right; ) {
-            int middle = left + (right - left) / 2;
+            int middle = left + ((right - left) >> 1);
             if(nums[middle] == target) 
                 return middle;
             else if(nums[middle] < target) {

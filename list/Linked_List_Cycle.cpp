@@ -1,6 +1,7 @@
 struct ListNode {
     int data;
     ListNode *next;
+    ListNode(): data(0), next(nullptr) {}
     ListNode(int v):data(v), next(nullptr) {}
 };
 
