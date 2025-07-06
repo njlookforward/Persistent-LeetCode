@@ -56,7 +56,7 @@ public:
         vector<vector<string>> result;
         unordered_map<string, vector<string>> u_map;
         for(int i = 0; i < strs.size(); i++) {
-            string key(26, 0);
+            string key(26, '0');
             for (auto &ch : strs[i])
             {
                 key[ch - 'a']++;
