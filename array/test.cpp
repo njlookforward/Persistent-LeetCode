@@ -1,6 +1,7 @@
 // #include "42_接雨水.hpp"
 // #include "1_两数之和.hpp"
-#include "121_买卖股票的最佳时机.hpp"
+// #include "121_买卖股票的最佳时机.hpp"
+#include "238_除自身以外数组的乘积.hpp"
 #include <iostream>
 using std::cout; using std::endl;
 
@@ -25,17 +26,29 @@ using std::cout; using std::endl;
 //     cout << "[" << nums[res[0]] << ", " << nums[res[1]] << "]" << endl;
 // }
 
-void testMaxProfit() {
-    vector<int> prices{7,1,5,3,6,4};
-    // vector<int> prices{7,6,4,3,1};
-    int maxProfit = Solution_v2().maxProfit(prices);
-    cout << "maxProfit = " << maxProfit << endl;
+// void testMaxProfit() {
+//     vector<int> prices{7,1,5,3,6,4};
+//     // vector<int> prices{7,6,4,3,1};
+//     int maxProfit = Solution_v2().maxProfit(prices);
+//     cout << "maxProfit = " << maxProfit << endl;
+// }
+
+void testProductExceptSelf() {
+    vector<int> nums{1,2,3,4};
+    // vector<int> nums{-1, 1, 0, -3, 3};
+    vector<int> res = Solution_v2().productExceptSelf(nums);
+    for (auto &&num : res)
+    {
+        cout << num << " ";
+    }
+    cout << endl;
 }
 
 int main(void) {
     // testTrap();
     // testTwoSum();
-    testMaxProfit();
+    // testMaxProfit();
+    testProductExceptSelf();
 
     return 0;
 }

@@ -78,15 +78,18 @@ inline Node *LRUCache::get_node(int key) {
     auto it = _key_to_Node.find(key);
     if(it == _key_to_Node.end())
         return nullptr;
-    return it->second;
+    Node *pNode = it->second;
+    remove(pNode);
+    push_front(pNode);
+    return pNode;
 }
 
 inline int LRUCache::get(int key) {
     auto it = get_node(key);
-    if(it != nullptr) {
-        remove(it);
-        push_front(it);
-    }
+    // if(it != nullptr) {
+    //     remove(it);
+    //     push_front(it);
+    // }
     return it ? it->_value : -1;
 }
 
@@ -94,8 +97,8 @@ inline void LRUCache::put(int key, int value) {
     Node *pNode = get_node(key);
     if(pNode != nullptr) {
         pNode->_value = value;
-        remove(pNode);
-        push_front(pNode);
+        // remove(pNode);
+        // push_front(pNode);
         return;
     }
 
